@@ -11,20 +11,272 @@
             href="../assets/favicon.ico" />
     </head>
     <body>
-        <form>
-            <textarea fabric="message"></textarea>
-            <button actions="fabric, reset">click</button>
+        <input type="file" />
+        <canvas fabric src=""></canvas>
+        <div>
+            <!-- Brightness -->
+            <input
+                type="range"
+                fabric-selector="document; canvas"
+                fabric-image-filter="brightness"
+                min="-1"
+                max="1"
+                step="0.1"
+                value="0" />
+
+            <!-- Contrast -->
+            <input
+                type="range"
+                fabric-selector="document; canvas"
+                fabric-image-filter="contrast"
+                min="-1"
+                max="1"
+                step="0.1"
+                value="0" />
+
+            <!-- Grayscale -->
+            <input
+                type="checkbox"
+                fabric-selector="document; canvas"
+                fabric-image-filter="grayscale"
+                value="true" />
+
+            <!-- Sepia -->
+            <input
+                type="checkbox"
+                fabric-selector="document; canvas"
+                fabric-image-filter="sepia"
+                value="true" />
+
+            <!-- Blur -->
+            <input
+                type="range"
+                fabric-selector="document; canvas"
+                fabric-image-filter="blur"
+                min="0"
+                max="1"
+                step="0.1"
+                value="0.5" />
+
+            <!-- Sharpen -->
+            <!-- No direct control for matrix, typically predefined -->
+            <input
+                type="hidden"
+                fabric-selector="document; canvas"
+                fabric-image-filter="sharpen"
+                value="true" />
+
+            <!-- Noise -->
+            <input
+                type="range"
+                fabric-selector="document; canvas"
+                fabric-image-filter="noise"
+                min="0"
+                max="500"
+                step="1"
+                value="100" />
+
+            <!-- Pixelate -->
+            <input
+                type="range"
+                fabric-selector="document; canvas"
+                fabric-image-filter="pixelate"
+                min="1"
+                max="20"
+                step="1"
+                value="8" />
+
+            <!-- Remove Color -->
+            <input
+                type="color"
+                fabric-selector="document; canvas"
+                fabric-image-filter="removeColor.color"
+                value="#00ff00" />
+            <input
+                type="range"
+                fabric-selector="document; canvas"
+                fabric-image-filter="removeColor.distance"
+                min="0"
+                max="1"
+                step="0.1"
+                value="0.1" />
+
+            <!-- Blend Color -->
+            <input
+                type="color"
+                fabric-selector="document; canvas"
+                fabric-image-filter="blendColor.color"
+                value="#ff0000" />
+            <select
+                fabric-selector="document; canvas"
+                fabric-image-filter="blendColor.mode">
+                <option value="multiply">Multiply</option>
+                <option value="screen">Screen</option>
+                <option value="add">Add</option>
+                <option value="subtract">Subtract</option>
+                <option value="difference">Difference</option>
+                <option value="lighten">Lighten</option>
+                <option value="darken">Darken</option>
+            </select>
+
+            <!-- Multiply -->
+            <input
+                type="color"
+                fabric-selector="document; canvas"
+                fabric-image-filter="multiply.color"
+                value="#00ff00" />
+
+            <!-- Gamma -->
+            <input
+                type="number"
+                fabric-selector="document; canvas"
+                fabric-image-filter="gamma.0"
+                min="0"
+                max="2"
+                step="0.1"
+                value="1" />
+            <input
+                type="number"
+                fabric-selector="document; canvas"
+                fabric-image-filter="gamma.1"
+                min="0"
+                max="2"
+                step="0.1"
+                value="0.5" />
+            <input
+                type="number"
+                fabric-selector="document; canvas"
+                fabric-image-filter="gamma.2"
+                min="0"
+                max="2"
+                step="0.1"
+                value="0.5" />
+
+            <!-- Tint -->
+            <input
+                type="color"
+                fabric-selector="document; canvas"
+                fabric-image-filter="tint.color"
+                value="#ff0000" />
+            <input
+                type="range"
+                fabric-selector="document; canvas"
+                fabric-image-filter="tint.opacity"
+                min="0"
+                max="1"
+                step="0.1"
+                value="0.5" />
+
+            <!-- Gradient Transparency -->
+            <input
+                type="range"
+                fabric-selector="document; canvas"
+                fabric-image-filter="gradientTransparency.threshold"
+                min="0"
+                max="255"
+                step="1"
+                value="100" />
+
+            <!-- Convolute -->
+            <!-- No direct control for matrix, typically predefined -->
+            <input
+                type="hidden"
+                fabric-selector="document; canvas"
+                fabric-selector="document; canvas"
+                fabric-image-filter="convolute"
+                value="true" />
+
+            <!-- Hue Rotation -->
+            <input
+                type="number"
+                fabric-selector="document; canvas"
+                fabric-image-filter="hueRotation"
+                value="0.5"
+                hidden />
+
+            <!-- Invert -->
+            <input
+                type="checkbox"
+                fabric-selector="document; canvas"
+                fabric-image-filter="invert"
+                value="true"
+                hidden />
+        </div>
+
+        <form id="clarendonForm">
+            <h3>Clarendon Filter</h3>
+            <input
+                type="number"
+                fabric-image-filter="brightness"
+                value="0.05"
+                hidden />
+            <input
+                type="number"
+                fabric-image-filter="contrast"
+                value="0.15"
+                hidden />
+            <input
+                type="number"
+                fabric-image-filter="saturation"
+                value="0.3"
+                hidden />
+            <input
+                type="color"
+                fabric-image-filter="tint.color"
+                value="#b3ccff"
+                hidden />
+            <input
+                type="number"
+                fabric-image-filter="tint.opacity"
+                value="0.1"
+                hidden />
+            <button type="button" id="clarendon">Apply Clarendon</button>
         </form>
 
-        <button id="brightness">Brightness</button>
-        <button id="contrast">Contrast</button>
-        <button id="grayscale">Grayscale</button>
-        <button id="sepia">Sepia</button>
-        <!-- Add more buttons for other filters as needed -->
+        <form id="ginghamForm">
+            <h3>Gingham Filter</h3>
+            <input
+                type="number"
+                fabric-image-filter="saturation"
+                value="-0.2"
+                hidden />
+            <input
+                type="number"
+                fabric-image-filter="hueRotation"
+                value="-0.1"
+                hidden />
+            <input
+                type="number"
+                fabric-image-filter="brightness"
+                value="0.05"
+                hidden />
+            <button type="button" id="gingham">Apply Gingham</button>
+        </form>
 
-        <button id="clarendon">Clarendon</button>
-        <button id="gingham">Gingham</button>
-        <button id="juno">Juno</button>
+        <form id="junoForm" undeclared is one>
+            <h3>Juno Filter</h3>
+            <input
+                type="number"
+                fabric-image-filter="contrast"
+                value="0.2"
+                hidden />
+            <input
+                type="number"
+                fabric-image-filter="saturation"
+                value="0.1"
+                hidden />
+            <input
+                type="color"
+                fabric-image-filter="tint.color"
+                value="#ffd700"
+                hidden />
+            <input
+                type="number"
+                fabric-image-filter="tint.opacity"
+                value="0.1"
+                hidden />
+            <button type="button" id="juno">Apply Juno</button>
+        </form>
         <!-- Add more buttons for other custom filters as needed -->
 
         <!-- <script src="../src/CoCreate-fabric.js"></script> -->
