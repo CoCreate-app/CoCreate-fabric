@@ -1,111 +1,178 @@
 import { fabric } from 'fabric';
-import { queryElements } from '@cocreate/utils'
+import { queryElements } from '@cocreate/utils';
+import Actions from '@cocreate/actions';
 
 function init() {
-    let elements = document.querySelectorAll('[fabric]');
+    let elements = document.querySelectorAll('canvas[fabric]');
     initElements(elements);
-    initFilters()
+    initInputs();
 }
 
 function initElements(elements) {
-    for (let element of elements)
+    for (let element of elements) {
         initElement(element);
+    }
 }
 
 function initElement(element) {
-    const canvas = new fabric.Canvas(element);
-    const src = element.getAttribute('src');
+    // Reuse the fabric.Canvas instance if it already exists or create a new one
+    const canvas = element.fabricInstance || new fabric.Canvas(element);
+    element.fabricInstance = canvas; // Store the instance back on the element for future reuse
 
+    const src = element.getAttribute('src');
     if (src) {
         fabric.Image.fromURL(src, function (img) {
             img.set({ left: 100, top: 100 });
             canvas.add(img);
+            canvas.renderAll();
         });
     }
-
 }
 
-function initFilters() {
-    let filters = document.querySelectorAll('[fabric-selector]');
-    for (let filter of filters) {
-        let canvasElements = queryElements({ filter, prefix: 'fabric' });
-
+function initInputs() {
+    let inputs = document.querySelectorAll('[fabric-selector]');
+    for (let input of inputs) {
+        let canvasElements = queryElements({ element: input, prefix: 'fabric' });
         // Add event listeners based on element type
-        if (filter.tagName.toLowerCase() === 'input') {
-            filter.addEventListener('input', (event) => applyFilter(event, filter, canvasElements));
-        } else if (filter.tagName.toLowerCase() === 'select') {
-            filter.addEventListener('change', (event) => applyFilter(event, filter, canvasElements));
+        if (input.type === 'file') {
+            input.addEventListener('change',
+                () => insertImage(input, canvasElements));
+        } else {
+            input.addEventListener(input.tagName.toLowerCase() === 'input' ? 'input' : 'change',
+                () => updateCanvas(input, canvasElements));
+
         }
     }
 }
 
-function applyFilter(event, filter, canvasElements) {
-    let filterType = filter.getAttribute('fabric-image-filter');
-    if (!filterType)
-        return
+function insertImage(input, canvasElements, file) {
+    if (!file)
+        file = input.files[0]
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            // Ensure there is a canvas element to add the image to
+            if (canvasElements.length > 0) {
+                const canvas = canvasElements[0].fabricInstance; // Assuming canvas is already initialized and stored
+                fabric.Image.fromURL(e.target.result, function (img) {
+                    var scaleWidth = canvas.width / img.width;
+                    var scaleHeight = canvas.height / img.height;
+                    var scale = Math.min(1, scaleWidth, scaleHeight); // Ensure the scale is not more than 1
 
-    let filterParam
-    if (filterType.includes('.')) {
-        filterType = filterType.split('.')
-        filterParam = filterType[1].toLowerCase()
-        filterType = filterType[0].charAt(0).toUpperCase() + filterType[0].slice(1)
-    } else {
-        filterType = filterType.charAt(0).toUpperCase() + filterType.slice(1)
-        filterParam = filterType.toLowerCase()
-    }
+                    // Set the image scale and center it on the canvas
+                    img.set({
+                        scaleX: scale,
+                        scaleY: scale,
+                        left: (canvas.width - img.width * scale) / 2, // Center horizontally
+                        top: (canvas.height - img.height * scale) / 2 // Center vertically
+                    });
+                    canvas.add(img);
+                    canvas.renderAll();
 
-    let filterValue = event.target.value;
-    if (filter.type === 'range' || filter.type === 'number') {
-        filterValue = parseFloat(filterValue);
-    }
-
-    for (let canvasElement of canvasElements) {
-        let canvas = new fabric.Canvas(canvasElement);
-        let activeObject = canvas.getActiveObject();
-
-        if (activeObject && activeObject.type === 'image') {
-            activeObject.filters = activeObject.filters || [];
-            let filterIndex = activeObject.filters.findIndex(f => f.type === filterType);
-
-            if (filterIndex >= 0) {
-                activeObject.filters[filterIndex][filterParam] = filterValue
-            } else {
-                let filterObj = {};
-                filterObj[filterParam] = filterValue;
-                let fabricFilter = new fabric.Image.filters[filterType](filterObj);
-                activeObject.filters.push(fabricFilter);
+                    // Set the image as the active object
+                    canvas.setActiveObject(img);
+                });
             }
+        };
+        reader.readAsDataURL(file); // Read the file as a data URL to use with Fabric.js
+    }
+}
 
-            activeObject.applyFilters();
-            canvas.renderAll();
+function updateCanvas(element, canvasElements) {
+    if (element && !(element instanceof HTMLCollection) && !(element instanceof NodeList) && !Array.isArray(element))
+        element = [element]
+    for (let i = 0; i < element.length; i++) {
+        if (!canvasElements)
+            canvasElements = queryElements({ element: element[i], prefix: 'fabric' });
+        // if (!value)
+        let value = element[i].value
+        let fabricAttr = element[i].getAttribute('fabric');
+        if (!fabricAttr)
+            return;
+
+        let fabricObject, fabricMethod, fabricProperty, fabricParam
+        fabricAttr = fabricAttr.split('.')
+        for (let j = 0; j < fabricAttr.length; j++) {
+            if (j === 0) {
+                fabricObject = fabricAttr[0].charAt(0).toUpperCase() + fabricAttr[0].slice(1)
+            } else if (j === 1) {
+                if (fabricAttr[1] !== 'filters')
+                    fabricMethod = fabricAttr[1].charAt(0).toUpperCase() + fabricAttr[1].slice(1)
+                else
+                    fabricMethod = fabricAttr[1]
+            } else if (j === 2) {
+                fabricProperty = fabricAttr[2].charAt(0).toUpperCase() + fabricAttr[2].slice(1)
+            } else if (j === 3) {
+                fabricParam = fabricAttr[3]
+            }
+        }
+
+        if (element[i].type === 'range' || element[i].type === 'number') {
+            value = parseFloat(value);
+        }
+
+        for (let canvasElement of canvasElements) {
+            let canvas = canvasElement.fabricInstance; // Use the stored instance
+            let activeObject = canvas.getActiveObject();
+
+            if (activeObject) {
+                if (fabricMethod === 'filters') {
+                    applyFilter(activeObject, fabricProperty, fabricParam, value);
+                } else if (fabricProperty) {
+                    applyObjectProperty(activeObject, fabricObject, fabricMethod, fabricProperty, value);
+                } else {
+                    applyMethod(activeObject, fabricObject, fabricMethod);
+                }
+                canvas.renderAll();
+            }
         }
     }
 }
 
-// Load an image
-fabric.Image.fromURL('path/to/your/image.jpg', function (img) {
-    img.set({
-        left: 100,
-        top: 100,
-        angle: 0,
-        scaleX: 1,
-        scaleY: 1,
-    });
-    img.scaleToWidth(300);
-    img.scaleToHeight(300);
+function applyFilter(activeObject, fabricProperty, fabricParam, value) {
+    activeObject.filters = activeObject.filters || [];
+    if (!fabricParam)
+        fabricParam = fabricProperty.toLowerCase()
 
-    // Add image to canvas
-    canvas.add(img);
+    let filterIndex = activeObject.filters.findIndex(f => f.type === fabricProperty);
 
-    // Make image selectable
-    img.set({
-        selectable: true,
-        hasControls: true,
-        hasBorders: true,
-    });
+    if (filterIndex >= 0) {
+        activeObject.filters[filterIndex][fabricParam] = value;
+    } else {
+        let filterObj = { [fabricParam]: value };
+        let fabricFilter = new fabric.Image.filters[fabricProperty](filterObj);
+        activeObject.filters.push(fabricFilter);
+    }
 
-    canvas.setActiveObject(img);
-    canvas.renderAll();
+    activeObject.applyFilters();
+}
+
+function applyObjectProperty(activeObject, fabricObject, fabricMethod, fabricProperty, value) {
+    // Check method existence and apply properties
+    if (activeObject[fabricMethod] && typeof activeObject[fabricMethod] === 'function') {
+        activeObject[fabricMethod]({ [fabricProperty]: value });
+    } else {
+        console.error(`Method '${fabricMethod}' does not exist on '${fabricObject}' or is not a function.`);
+    }
+}
+
+function applyMethod(activeObject, fabricObject, fabricMethod) {
+    if (!activeObject[fabricMethod]) {
+        console.error(`Method '${fabricMethod}' does not exist for Fabric.js object.`);
+        return;
+    }
+
+    activeObject[fabricMethod]();
+}
+
+Actions.init({
+    name: "fabric",
+    endEvent: "signUp",
+    callback: (action) => {
+        const canvasElements = queryElements({ element: action.form, prefix: 'fabric' });
+        const elements = action.form.querySelectorAll('[fabric]')
+        updateCanvas(elements, canvasElements);
+    }
 });
 
 init()
