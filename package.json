@@ -1,6 +1,6 @@
 {
   "name": "@cocreate/fabric",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A simple fabric component in vanilla javascript. Easily configured using HTML5 attributes and/or JavaScript API.",
   "keywords": [
     "fabric",
