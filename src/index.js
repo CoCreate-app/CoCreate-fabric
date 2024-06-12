@@ -30,7 +30,7 @@ function initElement(element) {
 }
 
 function initInputs() {
-    let inputs = document.querySelectorAll('[fabric-selector]');
+    let inputs = document.querySelectorAll('[fabric-selector], [fabric-closest], [fabric-parent], [fabric-next], [fabric-previous]');
     for (let input of inputs) {
         let canvasElements = queryElements({ element: input, prefix: 'fabric' });
         // Add event listeners based on element type
@@ -46,17 +46,31 @@ function initInputs() {
 }
 
 function insertImage(input, canvasElements, file) {
-    if (!file)
-        file = input.files[0]
+    if (!file) {
+        file = input.files[0];
+    }
     if (file) {
         const reader = new FileReader();
         reader.onload = function (e) {
             // Ensure there is a canvas element to add the image to
             if (canvasElements.length > 0) {
                 const canvas = canvasElements[0].fabricInstance; // Assuming canvas is already initialized and stored
+
+                // Get the size from the parent element of .canvas-container
+                const container = canvasElements[0].closest('.canvas-container').parentElement;
+                const containerWidth = container.clientWidth;
+                const containerHeight = container.clientHeight;
+                canvas.setWidth(containerWidth);
+                canvas.setHeight(containerHeight);
+
                 fabric.Image.fromURL(e.target.result, function (img) {
-                    var scaleWidth = canvas.width / img.width;
-                    var scaleHeight = canvas.height / img.height;
+                    // Add some padding/margin to ensure the image is smaller than the canvas
+                    const padding = 20; // Adjust this value as needed
+                    const maxWidth = canvas.width - padding * 2;
+                    const maxHeight = canvas.height - padding * 2;
+
+                    var scaleWidth = maxWidth / img.width;
+                    var scaleHeight = maxHeight / img.height;
                     var scale = Math.min(1, scaleWidth, scaleHeight); // Ensure the scale is not more than 1
 
                     // Set the image scale and center it on the canvas
