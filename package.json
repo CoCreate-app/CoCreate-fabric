@@ -1,65 +1,65 @@
 {
-    "name": "@cocreate/fabric",
-    "version": "1.0.0",
-    "description": "A simple fabric component in vanilla javascript. Easily configured using HTML5 attributes and/or JavaScript API.",
-    "keywords": [
-        "fabric",
-        "cocreate",
-        "low-code-framework",
-        "no-code-framework",
-        "cocreatejs",
-        "cocreatejs-component",
-        "cocreate-framework",
-        "no-code",
-        "low-code",
-        "collaborative-framework",
-        "realtime",
-        "realtime-framework",
-        "collaboration",
-        "shared-editing",
-        "html5-framework",
-        "javascript-framework"
-    ],
-    "publishConfig": {
-        "access": "public"
-    },
-    "scripts": {
-        "start": "npx webpack --config webpack.config.js",
-        "build": "npx webpack --mode=production --config webpack.config.js",
-        "dev": "npx webpack --config webpack.config.js --watch",
-        "postinstall": "node -e \"const { execSync } = require('child_process'); try { execSync('coc --version', { stdio: 'ignore' }); } catch (error) { try { execSync('npm install -g @cocreate/cli', { stdio: 'inherit' }); console.log('Installed \"@cocreate/cli\" globally.'); } catch (error) { console.error('Failed to install \"@cocreate/cli\" globally:', error); } }\""
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/CoCreate-app/CoCreate-fabric.git"
-    },
-    "author": "CoCreate LLC",
-    "license": "AGPL-3.0",
-    "bugs": {
-        "url": "https://github.com/CoCreate-app/CoCreate-fabric/issues"
-    },
-    "homepage": "https://cocreate.app/docs/fabric",
-    "funding": {
-        "type": "GitHub Sponsors ❤",
-        "url": "https://github.com/sponsors/CoCreate-app"
-    },
-    "main": "./src/index.js",
-    "devDependencies": {
-        "@babel/core": "^7.9.6",
-        "@babel/preset-env": "^7.9.6",
-        "babel-loader": "^8.1.0",
-        "clean-webpack-plugin": "^3.0.0",
-        "file-loader": "^6.2.0",
-        "mini-css-extract-plugin": "^1.5.0",
-        "style-loader": "^3.3.1",
-        "terser-webpack-plugin": "^5.1.1",
-        "webpack": "^5.24.4",
-        "webpack-cli": "^4.5.0",
-        "webpack-log": "^3.0.1"
-    },
-    "dependencies": {
-        "@cocreate/actions": "^1.18.2",
-        "@cocreate/utils": "^1.33.7",
-        "fabric": "^5.3.0"
-    }
+  "name": "@cocreate/fabric",
+  "version": "1.0.0",
+  "description": "A simple fabric component in vanilla javascript. Easily configured using HTML5 attributes and/or JavaScript API.",
+  "keywords": [
+    "fabric",
+    "cocreate",
+    "low-code-framework",
+    "no-code-framework",
+    "cocreatejs",
+    "cocreatejs-component",
+    "cocreate-framework",
+    "no-code",
+    "low-code",
+    "collaborative-framework",
+    "realtime",
+    "realtime-framework",
+    "collaboration",
+    "shared-editing",
+    "html5-framework",
+    "javascript-framework"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "start": "npx webpack --config webpack.config.js",
+    "build": "npx webpack --mode=production --config webpack.config.js",
+    "dev": "npx webpack --config webpack.config.js --watch",
+    "postinstall": "node -e \"const { execSync } = require('child_process'); try { execSync('coc --version', { stdio: 'ignore' }); } catch (error) { try { execSync('npm install -g @cocreate/cli', { stdio: 'inherit' }); console.log('Installed \"@cocreate/cli\" globally.'); } catch (error) { console.error('Failed to install \"@cocreate/cli\" globally:', error); } }\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoCreate-app/CoCreate-fabric.git"
+  },
+  "author": "CoCreate LLC",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/CoCreate-app/CoCreate-fabric/issues"
+  },
+  "homepage": "https://cocreate.app/docs/fabric",
+  "funding": {
+    "type": "GitHub Sponsors ❤",
+    "url": "https://github.com/sponsors/CoCreate-app"
+  },
+  "main": "./src/index.js",
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "file-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^1.5.0",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.1.1",
+    "webpack": "^5.24.4",
+    "webpack-cli": "^4.5.0",
+    "webpack-log": "^3.0.1"
+  },
+  "dependencies": {
+    "@cocreate/actions": "^1.18.2",
+    "@cocreate/utils": "^1.33.7",
+    "fabric": "^5.3.0"
+  }
 }
