@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/CoCreate-app/CoCreate-fabric/compare/v1.1.0...v1.1.1) (2024-06-19)
+
+
+### Bug Fixes
+
+* action name typo ([fd07cca](https://github.com/CoCreate-app/CoCreate-fabric/commit/fd07cca4424df319521643dae475956a77057698))
+
 # [1.1.0](https://github.com/CoCreate-app/CoCreate-fabric/compare/v1.0.0...v1.1.0) (2024-06-12)
 
 
