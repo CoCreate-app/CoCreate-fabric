@@ -181,7 +181,7 @@ function applyMethod(activeObject, fabricObject, fabricMethod) {
 
 Actions.init({
     name: "fabric",
-    endEvent: "signUp",
+    endEvent: "fabric",
     callback: (action) => {
         const canvasElements = queryElements({ element: action.form, prefix: 'fabric' });
         const elements = action.form.querySelectorAll('[fabric]')
