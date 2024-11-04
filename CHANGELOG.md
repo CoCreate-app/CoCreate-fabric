@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/CoCreate-app/CoCreate-fabric/compare/v1.1.1...v1.2.0) (2024-11-04)
+
+
+### Bug Fixes
+
+* pretier.config.js and file formating ([871c75d](https://github.com/CoCreate-app/CoCreate-fabric/commit/871c75d8d6b7695f8439fe3986690a17e2532aa1))
+
+
+### Features
+
+* add prettier.config.js and format files ([f7ff159](https://github.com/CoCreate-app/CoCreate-fabric/commit/f7ff159bdf55c3eb2cf235977909ea2b4451c468))
+* add prettier.config.js and format files ([57a97c3](https://github.com/CoCreate-app/CoCreate-fabric/commit/57a97c3fe9fba51285a23d3827761a4cff6f60f5))
+
 ## [1.1.1](https://github.com/CoCreate-app/CoCreate-fabric/compare/v1.1.0...v1.1.1) (2024-06-19)
 
 
