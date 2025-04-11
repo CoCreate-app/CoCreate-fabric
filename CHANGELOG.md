@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/CoCreate-app/CoCreate-fabric/compare/v1.2.0...v1.2.1) (2025-04-11)
+
+
+### Bug Fixes
+
+* dispatch end event on action element rather than document ([47fcbc4](https://github.com/CoCreate-app/CoCreate-fabric/commit/47fcbc4a146a62674310d2d93b57129d17c7d406))
+
 # [1.2.0](https://github.com/CoCreate-app/CoCreate-fabric/compare/v1.1.1...v1.2.0) (2024-11-04)
 
 
