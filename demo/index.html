@@ -11,13 +11,13 @@
 			href="../assets/favicon.ico" />
 	</head>
 	<body>
-		<input type="file" fabric-document="canvas" fabric-left="50" />
+		<input type="file" fabric-query="$document canvas" fabric-left="50" />
 		<canvas fabric src="" width="800px" height="600px"></canvas>
 		<div>
 			<!-- Brightness -->
 			<input
 				type="range"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.brightness"
 				min="-1"
 				max="1"
@@ -27,7 +27,7 @@
 			<!-- Contrast -->
 			<input
 				type="range"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.contrast"
 				min="-1"
 				max="1"
@@ -37,21 +37,21 @@
 			<!-- Grayscale -->
 			<input
 				type="checkbox"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.grayscale"
 				value="true" />
 
 			<!-- Sepia -->
 			<input
 				type="checkbox"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.sepia"
 				value="true" />
 
 			<!-- Blur -->
 			<input
 				type="range"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.blur"
 				min="0"
 				max="1"
@@ -62,14 +62,14 @@
 			<!-- No direct control for matrix, typically predefined -->
 			<input
 				type="hidden"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.sharpen"
 				value="true" />
 
 			<!-- Noise -->
 			<input
 				type="range"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.noise"
 				min="0"
 				max="500"
@@ -79,7 +79,7 @@
 			<!-- Pixelate -->
 			<input
 				type="range"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.pixelate"
 				min="1"
 				max="20"
@@ -89,12 +89,12 @@
 			<!-- Remove Color -->
 			<input
 				type="color"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.removeColor.color"
 				value="#00ff00" />
 			<input
 				type="range"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.removeColor.distance"
 				min="0"
 				max="1"
@@ -104,11 +104,11 @@
 			<!-- Blend Color -->
 			<input
 				type="color"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.blendColor.color"
 				value="#ff0000" />
 			<select
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.blendColor.mode">
 				<option value="multiply">Multiply</option>
 				<option value="screen">Screen</option>
@@ -122,14 +122,14 @@
 			<!-- Multiply -->
 			<input
 				type="color"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.multiply.color"
 				value="#00ff00" />
 
 			<!-- Gamma -->
 			<input
 				type="number"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.gamma.0"
 				min="0"
 				max="2"
@@ -137,7 +137,7 @@
 				value="1" />
 			<input
 				type="number"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.gamma.1"
 				min="0"
 				max="2"
@@ -145,7 +145,7 @@
 				value="0.5" />
 			<input
 				type="number"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.gamma.2"
 				min="0"
 				max="2"
@@ -155,12 +155,12 @@
 			<!-- Tint -->
 			<input
 				type="color"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.tint.color"
 				value="#ff0000" />
 			<input
 				type="range"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.tint.opacity"
 				min="0"
 				max="1"
@@ -170,7 +170,7 @@
 			<!-- Gradient Transparency -->
 			<input
 				type="range"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.gradientTransparency.threshold"
 				min="0"
 				max="255"
@@ -181,14 +181,14 @@
 			<!-- No direct control for matrix, typically predefined -->
 			<input
 				type="hidden"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.convolute"
 				value="true" />
 
 			<!-- Hue Rotation -->
 			<input
 				type="number"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.hueRotation"
 				value="0.5"
 				hidden />
@@ -196,7 +196,7 @@
 			<!-- Invert -->
 			<input
 				type="checkbox"
-				fabric-document="canvas"
+				fabric-query="$document canvas"
 				fabric="image.filters.invert"
 				value="true"
 				hidden />
@@ -252,7 +252,7 @@
 			<button action="fabric">Apply Gingham</button>
 		</form>
 
-		<form id="junoForm" fabric-document="canvas">
+		<form id="junoForm" fabric-query="$document canvas">
 			<h3>Juno Filter</h3>
 			<input
 				type="number"
