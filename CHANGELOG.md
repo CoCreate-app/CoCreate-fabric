@@ -1,3 +1,13 @@
+## [1.2.2](https://github.com/CoCreate-app/CoCreate-fabric/compare/v1.2.1...v1.2.2) (2025-05-01)
+
+
+### Bug Fixes
+
+* added css-loader ([fbd532e](https://github.com/CoCreate-app/CoCreate-fabric/commit/fbd532ecf35d9224a760b7bd0fdc836c056c8cb3))
+* update [@cocreate](https://github.com/cocreate) dependencies ([53dece3](https://github.com/CoCreate-app/CoCreate-fabric/commit/53dece367397a9514d191366c65cb1192042328d))
+* update query attributes ([a566d3d](https://github.com/CoCreate-app/CoCreate-fabric/commit/a566d3d6706ceb6d9bbd66ca2a7faf86c9eab3e1))
+* updated cocreate modules versions ([b365f64](https://github.com/CoCreate-app/CoCreate-fabric/commit/b365f641bd723bd2024c239d52b3af8c66632252))
+
 ## [1.2.1](https://github.com/CoCreate-app/CoCreate-fabric/compare/v1.2.0...v1.2.1) (2025-04-11)
 
 
