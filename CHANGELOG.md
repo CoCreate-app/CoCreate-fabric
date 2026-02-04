@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/CoCreate-app/CoCreate-fabric/compare/v1.2.2...v1.2.3) (2026-02-04)
+
+
+### Bug Fixes
+
+* update worklow ([efa0a56](https://github.com/CoCreate-app/CoCreate-fabric/commit/efa0a56f689aab2b3980959c9d8f51ee44715f28))
+
 ## [1.2.2](https://github.com/CoCreate-app/CoCreate-fabric/compare/v1.2.1...v1.2.2) (2025-05-01)
 
 
